@@ -46,17 +46,17 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
  */
 int check_cycle(listint_t *list)
 {
-	listint_t *slow = list;
-	listint_t *fast = list;
+	listint_t *fast, *slow = list;
 
-	if (!list)
+	if (list == NULL)
 		return (0);
-	while (slow && fast && fast->next)
+	fast = list->next;
+	while (slow != NULL && fast != NULL && fast->next != NULL)
 	{
-		slow = slow->next;
-		fast = fast->next->next;
 		if (slow == fast)
 			return (1);
+		fast = fast->next->next;
+		slow = slow->next;
 	}
 	return (0);
 }
